@@ -112,16 +112,15 @@ document.addEventListener("DOMContentLoaded", function(){
             }    
         
             function setUsers(user){
-                const lineItem = document.createElement('li')
-                lineItem.innerHTML = `
-                <div class=friend-in-list name=confirmed>
-                    <img class=circletag src=${user.profile_img}>
-                    <h2>${user.name}</h2>
-                </div`
-            card.appendChild(lineItem)
-            const userImg = lineItem.querySelector("img")
+                const userDIV = document.createElement(`div`)
+                userDIV.classList.add(`friend-in-search`)
+                userDIV.innerHTML =`
+                                    <img class=circlesearch src=${user.profile_img}>
+                                    <h2>${user.name}</h2>`
+            card.appendChild(userDIV)
+            const userImg = userDIV.querySelector("img")
             userImg.style.cursor = "pointer"
-            selectFriend(userImg,user)
+            selectFriend(userImg, user)
             }            
 
             center.addEventListener("click", function(){
@@ -238,11 +237,10 @@ document.addEventListener("DOMContentLoaded", function(){
     userContainer.appendChild(lineItem)
     const friendImg = lineItem.querySelector("img")
     friendImg.style.cursor = "pointer"
-    selectFriend(friendImg,user)
+    selectFriend(friendImg, user)
     }
 
-    function selectFriend(friendImg,user){
-        debugger
+    function selectFriend(friendImg, user){
         friendImg.addEventListener("click", function(){
             center.innerHTML = `
             <div id=card class=card>
@@ -266,8 +264,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 
             </div>           
             `
-            if (allFriends.includes(user)){
-
+            if (allFriends.some(friend => friend.email === user.email)){
                center.innerHTML +=`
                 <div class=card-bottomright>
                     <input type="button" id=card-katchup-btn name="katchup-btn" class=card-katchup-button value="katchup">
@@ -388,6 +385,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     function logIn(){
+        document.getElementById("left-search").innerHTML = ""
+        document.getElementById("right-search").innerHTML = ""
         restaurantContainer.textContent = ""
         userContainer.textContent = ""
 
