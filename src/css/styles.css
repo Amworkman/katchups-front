@@ -43,6 +43,15 @@ body {
     margin-right: auto;
   }
 
+  .friend-in-search{
+    display: inline-table;
+    text-align: center; 
+    align-self: center; 
+    height: 185px;
+    width: 150px;
+    margin: 0px;
+  }
+
   .friend-in-card{
     padding: 5%;
     text-align: center;
@@ -77,6 +86,24 @@ body {
   }
 
   .circletag img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  .circlesearch {
+    width: 130px;
+    height: 130px;
+    background: #3f3f3f;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+  }
+
+  .circlesearch img {
     max-height: 100%;
     max-width: 100%;
   }
@@ -176,13 +203,13 @@ body {
   }
 
   .login-card{
-    position: relative; 
+    position: absolute; 
     display: flex;
     justify-content: center; 
     background-color: #e4e4e4;
     width: 90%;
     height: 91%;
-    top: 2%;
+    top: 20px;
     box-shadow: 0 5px 15px rgba(39, 39, 39, 0.644);
     padding: 10px;
     border-radius: 10px;
@@ -194,7 +221,7 @@ body {
   }
 
   .card {
-    position: absolute;      
+    position: absolute;        
     background-color: #e4e4e4;
     width: 90%;
     height: 91%;
@@ -206,6 +233,12 @@ body {
     outline: none;
     margin : 0 auto;
     overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .card::-webkit-scrollbar {
+    display: none;
   }
 
   .card-topleft{
