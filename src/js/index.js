@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const LOGIN_URL = `${BASE_URL}/login`
     const RESTAURANTS_URL = `${BASE_URL}/restaurants`
     const RELATIONSHIPS_URL = `${BASE_URL}/relationships`
+    const allFriends = []
     const restaurantContainer = document.getElementById('restaurantContainer')
     const userContainer = document.getElementById('userContainer')
     const headerContainer = document.getElementById('header')
@@ -119,14 +120,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 </div`
             card.appendChild(lineItem)
             const userImg = lineItem.querySelector("img")
-            //userImg.style.cursor = "pointer"
-            //selectuser(userImg,user)
-            }
-
-                //center.innerHTML = `
-                    //<div class=card>
-                    //</div>`
-             
+            userImg.style.cursor = "pointer"
+            selectFriend(userImg,user)
+            }            
 
             center.addEventListener("click", function(){
                 setNavigation(user)
@@ -226,10 +222,13 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function returnFriends(users){
+        allFriends.clear
         users.forEach(user => setFriends(user))
+        
     }    
 
     function setFriends(user){
+        allFriends.push(user)
         const lineItem = document.createElement('li')
         lineItem.innerHTML = `
         <div class=friend-in-list name=confirmed>
@@ -243,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function selectFriend(friendImg,user){
-        
+        debugger
         friendImg.addEventListener("click", function(){
             center.innerHTML = `
             <div id=card class=card>
@@ -265,12 +264,21 @@ document.addEventListener("DOMContentLoaded", function(){
                 </div>
 
                 
-            </div>
-
-            <div class=card-bottomright>
-                <input type="button" id=card-katchup-btn name="katchup-btn" class=card-katchup-button value="katchup">
-            </div>
+            </div>           
             `
+            if (allFriends.includes(user)){
+
+               center.innerHTML +=`
+                <div class=card-bottomright>
+                    <input type="button" id=card-katchup-btn name="katchup-btn" class=card-katchup-button value="katchup">
+                </div>`
+            }else{
+                center.innerHTML +=`
+                <div class=card-bottomright>
+                    <input type="button" id=card-add-btn name="add-btn" class=card-add-button value="  +  ">
+                </div>`
+            }
+
             const card = document.getElementById("card")
                 card.addEventListener("click", function(){
                 center.innerHTML=""

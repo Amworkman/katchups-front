@@ -443,6 +443,30 @@ body {
     background-color: #be4f4f;
   }
 
+  .card-add-button{
+    margin: 20px auto; 
+    display: flex; 
+    justify-content: center;
+    background-color: #e4e4e4;
+    padding: 70px 50px;
+    font-family: Righteous;
+    color: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    font-size: 128px;
+    border-radius: 10px;
+    box-shadow: 0px 15px 25px #757575;
+    transition: box-shadow 0.5;
+    text-shadow: -1px 0 0px #ddd, 0 1px 0px #ccc, -2px 1px 0px #ccc, -1px 2px 0px #ccc, -3px 2px 0px #ccc, -2px 3px 0px #ccc, -4px 3px 0px #ccc, -3px 4px 0px #ccc, -5px 4px 0px #ccc, -4px 5px 0px #ccc, -6px 5px 0px #ccc, -5px 6px 15px #777;
+    transition: 0.8s;
+    transform: rotateX( 0deg ) rotateY( 0deg ) rotateZ( 0deg );
+  }
+  
+  .card-add-button:hover {
+    box-shadow: 0px 5px 15px rgb(124, 124, 124);
+    background-color: #77ca70;
+  }
+
   .logout-btn{
     display: inline-flex;
     position: absolute;
