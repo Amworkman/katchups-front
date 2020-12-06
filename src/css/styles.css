@@ -371,10 +371,33 @@ body {
     box-shadow: 0px 5px 10px #c7c7c7;
   }
 
+  .nav-location-box{    
+    position: absolute;
+    display: inline-flex;
+    right: 63%;
+    margin: 15px auto;
+    min-width: 300px;
+    padding: 5px 15px;
+    background-color: #e4e4e4;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    transition: box-shadow 0.5;
+  }
+
+  .nav-location-box:focus {
+    box-shadow: 0px 5px 10px #000000;
+  }
+
+  .nav-location-box:hover {
+    box-shadow: 0px 5px 10px #000000;
+  }
+
   .nav-search-box{    
     position: absolute;
     display: inline-flex;
-    right: 35%;
+    right: 40%;
     margin: 15px auto;
     min-width: 300px;
     padding: 5px 15px;
@@ -528,7 +551,7 @@ body {
     display: inline-flex;
     position: absolute;
     text-transform: uppercase;
-    right: 15%;
+    right: 20%;
     margin: 15px auto;
     padding: 6px 20px;
     background-color: #e4e4e400;
@@ -552,7 +575,7 @@ body {
     display: inline-flex;
     position: absolute;
     text-transform: uppercase;
-    right: 35%;
+    right: 44%;
     margin: 15px auto;
     padding: 6px 20px;
     background-color: #e4e4e400;
@@ -568,6 +591,30 @@ body {
   }
 
   .find-btn:hover {
+    text-shadow: 0px 5px 15px rgb(0, 0, 0);
+    color: #bdbdbd;
+  }
+
+  .location-btn{
+    display: inline-flex;
+    position: absolute;
+    text-transform: uppercase;
+    right: 66%;
+    margin: 15px auto;
+    padding: 6px 20px;
+    background-color: #e4e4e400;
+    color: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    font-size: 19px;
+    font-weight: bolder;
+    border-radius: 10px;
+    text-shadow: 0px 10px 10px #000000;
+    transition: 0.5s;
+    transition: text-shadow 0.5;
+  }
+
+  .location-btn:hover {
     text-shadow: 0px 5px 15px rgb(0, 0, 0);
     color: #bdbdbd;
   }
