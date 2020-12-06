@@ -20,7 +20,7 @@
     <main id=main>
 
         <div id=left-search class=left-box-2>
-          <input type="text" name="list-search" class="search-box" placeholder="Search Restaurants">
+          <input type="text" id="rest-search" name="list-search" class="search-box" placeholder="Search Restaurants">
 
         </div>
 
@@ -35,14 +35,21 @@
         </div>
 
         <div id=right-search class=right-box-2>
-          <input type="text" name="list-search" class="search-box" placeholder="Search Friends">
+          <input type="text" id="friend-search" name="list-search" class="search-box" placeholder="Search Friends">
         </div>
 
         <div id=right class=right-box>
             <span id="userContainer"></span>
         </div>        
     </main>
-
-    <script src="./src/js/index.js"></script>
+    <script src="./src/models/users.js"></script>
+    <script src="./src/models/friends.js"></script>
+    <script src="./src/models/pendings.js"></script>
+    <script src="./src/models/restaurants.js"></script>
+    <script src="./src/models/katchups.js"></script>
+    <script src="./src/services/api.js"></script>
+    <script src="./src/services/yelp.js"></script>
+    <script src="./src/index.js"></script>    
+   
   </body>
 </html>
