@@ -47,13 +47,13 @@ class Friend{
 
 function setSearchList(){
     const friendsSearch = document.getElementById("friend-search")
-    friendsSearch.addEventListener("keydown", function(event){
-        console.log(event)
+    friendsSearch.addEventListener("input", function(event){
+        const searchParams = this.value
         userContainer.innerHTML = ""       
         allFriends.filter(searchFriendList)
 
         function searchFriendList(friend){
-            if (friend.name.includes(event.key)){
+            if (friend.name.toLowerCase().includes(searchParams.toLowerCase())){
                 const lineItem = document.createElement('li')
                 lineItem.innerHTML = `
                     <div class=friend-in-list name=confirmed>
