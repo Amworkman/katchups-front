@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const RESTAURANTS_URL = `${BASE_URL}/restaurants`
     const RELATIONSHIPS_URL = `${BASE_URL}/relationships`
     const allFriends = []
+    const allRestaurants = []
     const restaurantContainer = document.getElementById('restaurantContainer')
     const userContainer = document.getElementById('userContainer')
     const headerContainer = document.getElementById('header')
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function(){
             fetchPending()
             getCurrentUser()
             setSearchList()
+            setSearchRestList()
              
         }else{
             logIn() 
