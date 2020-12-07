@@ -82,7 +82,7 @@ function selectRestaurant(restaurantImg, restaurant){
 
 function setSearchRestList(){
     const restSearch = document.getElementById("rest-search")
-    restSearch.addEventListener("input", function(event){
+    restSearch.addEventListener("input", function(){
         const searchParams = this.value
         restaurantContainer.innerHTML = ""       
         allRestaurants.filter(searchRestList)
@@ -104,10 +104,6 @@ function setSearchRestList(){
                 restaurantImg.style.cursor = "pointer"
                 selectRestaurant(restaurantImg, restaurant)
             }
-        } 
-        center.addEventListener("click", function(){
-            document.getElementById("rest-search").value = ""
-            fetchRestaurants()         
-        }, { once: true })       
-    })
+        }         
+    })    
 }

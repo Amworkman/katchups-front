@@ -49,6 +49,7 @@ function setSearchList(){
     const friendsSearch = document.getElementById("friend-search")
     friendsSearch.addEventListener("input", function(event){
         const searchParams = this.value
+        event.stopPropagation()
         userContainer.innerHTML = ""       
         allFriends.filter(searchFriendList)
 
@@ -65,10 +66,6 @@ function setSearchList(){
                 friendImg.style.cursor = "pointer"
                 selectUser(friendImg, friend)
             }
-        } 
-        center.addEventListener("click", function(){
-            document.getElementById("friend-search").value = ""
-            fetchFriends()         
-        }, { once: true })       
+        }        
     })
 }
