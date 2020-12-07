@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         headerContainer.innerHTML = `<input type="button" id=logout-btn name="logout-btn" class=logout-btn value="Log Out">
                                     <img class=nav-img src=${user.profile_img}>
-                                    <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.username}">
+                                    <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.name}">
                                     <input type="button" id=find-btn name="find-btn" class=find-btn value="find friends">
                                     <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="recent katchups">
                                     <input type="button" id=location-btn name="location-btn" class=location-btn value="change location">`
@@ -83,22 +83,51 @@ document.addEventListener("DOMContentLoaded", function(){
         locationButton.addEventListener("click", function(){
             headerContainer.innerHTML = `<input type="button" id=logout-btn name="logout-btn" class=logout-btn value="Log Out">
                                         <img class=nav-img src=${user.profile_img}>
-                                        <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.username}">
+                                        <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.name}">
                                         <input type="button" id=find-btn name="find-btn" class=find-btn value="find friends">
                                         <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="recent katchups">
-                                        <form id=nav-search-location><input type="text" name=nav-search-location class=nav-location-box placeholder="ENTER CITY"></form>`
-            clearNav()
+                                        <form id=nav-search-location><input type="text" id=nav-search-input name=nav-search-location class=nav-location-box placeholder="ENTER CITY"></form>`            
+            loadPlacesScript()           
+            
+            function loadPlacesScript() {
+                const navSearchinput = document.getElementById("nav-search-input")
+                navSearchinput.focus()
+                const searchScript = document.createElement("script")
+                searchScript.id = "search-script"
+                searchScript.textContent = `
+                                        function initMap(){
+                                        let input = document.getElementById('nav-search-input')
+                                        let autocomplete = new google.maps.places.Autocomplete(input)                 
+            
+                                        }`
+                document.body.appendChild(searchScript);
+
+                const placesScript = document.createElement("script")
+                placesScript.id = "places-script"
+                placesScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCsj7NQKQR2y-uR7oKWPC6gFgCMszn2COc&libraries=places&callback=initMap"
+            
+                document.body.appendChild(placesScript)
+                navSearchinput.addEventListener("focusout", function(){
+                    setNavigation(user)
+                    let pacContainer = document.getElementsByClassName("pac-container")
+                    document.getElementById("search-script").remove()
+                    document.getElementById("places-script").remove()
+                    while(pacContainer.length > 0) {
+                        pacContainer[0].remove();
+                     }
+                }, { once: true } )
+            }
         })
 
         findFriendsButton.addEventListener("click",function(){
             headerContainer.innerHTML = `<input type="button" id=logout-btn name="logout-btn" class=logout-btn value="Log Out">
                                     <img class=nav-img src=${user.profile_img}>
-                                    <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.username}">
-                                    <form id=nav-search><input type="text" name=nav-search class=nav-search-box placeholder="FIND FRIENDS"></form>
+                                    <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.name}">
+                                    <form id=nav-search><input id=nav-input type="text" name=nav-search class=nav-search-box placeholder="FIND FRIENDS"></form>
                                     <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="recent katchups">
                                     <input type="button" id=location-btn name="location-btn" class=location-btn value="change location">`
-            const navSearch = document.getElementById("nav-search") 
-           
+            const navSearch = document.getElementById("nav-input") 
+            navSearch.focus()
             navSearch.addEventListener("submit", function(event){ 
                 event.preventDefault()      
                 const formData = new FormData(navSearch)
@@ -130,13 +159,14 @@ document.addEventListener("DOMContentLoaded", function(){
                 userDIV.innerHTML =`
                                     <img class=circlesearch src=${user.profile_img}>
                                     <h2>${user.name}</h2>`
-            card.appendChild(userDIV)
-            const userImg = userDIV.querySelector("img")
-            userImg.style.cursor = "pointer"
-            selectUser(userImg, user)
+                card.appendChild(userDIV)
+                const userImg = userDIV.querySelector("img")
+                userImg.style.cursor = "pointer"
+                selectUser(userImg, user)
             }            
-
-            clearNav()   
+                navSearch.addEventListener("focusout", function(){
+                    setNavigation(user)
+                }, { once: true } )   
 
         })
 
@@ -199,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function(){
         loginCard.innerHTML = `
         <div class=form fade-in-element>
             <form id=login-form action="${LOGIN_URL}" method="post">
-                <input type="username" name="username" class="input-box" placeholder="Username">
+                <input type="email" name="email" class="input-box" placeholder="Email">
                 <input type="password" name="password" class="input-box" placeholder="Password">
                 <input type="submit" name="login-btn" class="btn" value="Sign In">
                 <input type="button" id=signup-btn name="signup-btn" class="btn" value="Don't have an account?">
@@ -280,8 +310,8 @@ document.addEventListener("DOMContentLoaded", function(){
         <div class=form fade-in-element>
             <form id=signup-form action="${FRIENDS_URL}" method="post">
                 <input type="text" name="name" class="input-box" placeholder="Full Name">
+                <input type="location" id=user-location-input name="location" class="input-box" placeholder="Location (ex. Atlanta, GA)">
                 <input type="email" name="email" class="input-box" placeholder="Email">
-                <input type="username" name="username" class="input-box" placeholder="Username">
                 <input type="password" name="password" class="input-box" placeholder="Password">
                 <input type="password" name="password_confirmation" class="input-box" placeholder="Confirm Password">
                 <input type="submit" id=signup-btn name="signup-btn" class="btn" value="Sign Up">
@@ -289,6 +319,35 @@ document.addEventListener("DOMContentLoaded", function(){
             </form>
         </div>
         `
+        const navUserInput = document.getElementById("user-location-input")
+        navUserInput.addEventListener("click", loadUserPlaces())           
+            
+        function loadUserPlaces() {
+
+            const searchScript = document.createElement("script")
+            searchScript.id = "user-search-script"
+            searchScript.textContent = `
+                                    function initMap(){
+                                    let input = document.getElementById('user-location-input')
+                                    let autocomplete = new google.maps.places.Autocomplete(input)                 
+            
+                                    }`
+            document.body.appendChild(searchScript);
+
+            const placesScript = document.createElement("script")
+            placesScript.id = "user-places-script"
+            placesScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCsj7NQKQR2y-uR7oKWPC6gFgCMszn2COc&libraries=places&callback=initMap"
+            
+            document.body.appendChild(placesScript)
+            navUserInput.addEventListener("focusout", function(){
+                let pacContainer = document.getElementsByClassName("pac-container")
+                document.getElementById("user-search-script").remove()
+                document.getElementById("user-places-script").remove()
+                while(pacContainer.length > 0) {
+                    pacContainer[0].remove();
+                }
+            }, { once: true } )
+        }
 
         const signUpForm = document.getElementById("signup-form")
         signUpForm.addEventListener("submit", handleFormSubmit);
