@@ -9,6 +9,7 @@ const LOGIN_URL = `${BASE_URL}/login`
 const RESTAURANTS_URL = `${BASE_URL}/restaurants`
 const RELATIONSHIPS_URL = `${BASE_URL}/relationships`
 let allFriends = []
+let allRestaurants = []
 const restaurantContainer = document.getElementById('restaurantContainer')
 const userContainer = document.getElementById('userContainer')
 const headerContainer = document.getElementById('header')
