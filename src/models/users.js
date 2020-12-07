@@ -57,7 +57,7 @@ function selectUser(friendImg, user){
         const card = document.getElementById("card")
             card.addEventListener("click", function(){
             center.innerHTML=""
-        })
+        }, { once:true } )
         
     })
     
