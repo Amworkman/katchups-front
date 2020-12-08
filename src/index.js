@@ -39,8 +39,9 @@ document.addEventListener("DOMContentLoaded", function(){
     
 
     function run(){
-        if (localStorage.length > 0){
-            center.innerHTML =""            
+        if (localStorage.token){
+            center.innerHTML =""
+            fetchPlacesKey()            
             fetchRestaurants()
             fetchFriends() 
             fetchPending()
@@ -49,10 +50,30 @@ document.addEventListener("DOMContentLoaded", function(){
             setSearchRestList()
              
         }else{
+            fetchPlacesKey()
             logIn() 
         }
     }
 
+
+    function fetchPlacesKey() {
+        restaurantContainer.textContent = ""
+        fetch(`${BASE_URL}/places_key`,{
+            method: "Get",
+            headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token")
+            }
+    })
+    .then(resp => resp.json())
+    .then(data => setPlacesKey(data))
+    
+    function setPlacesKey(data){
+        const key = data
+        localStorage.setItem('places', key)
+    }
+    
+    }
 
 
     // !NAVIGATION
@@ -104,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 const placesScript = document.createElement("script")
                 placesScript.id = "places-script"
-                placesScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCsj7NQKQR2y-uR7oKWPC6gFgCMszn2COc&libraries=places&callback=initMap"
+                placesScript.src = `https://maps.googleapis.com/maps/api/js?key=${localstorage.places}&libraries=places&callback=initMap`
             
                 document.body.appendChild(placesScript)
                 navSearchinput.addEventListener("focusout", function(){
