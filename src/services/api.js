@@ -1,4 +1,8 @@
+function setCurrentUser(user){
+    globalThis.currentUser = user
+    setNavigation(user)
 
+}
 
 function fetchFriends() {
     userContainer.textContent = ""
