@@ -124,11 +124,13 @@ document.addEventListener("DOMContentLoaded", function(){
                                     <form id=nav-search><input id=nav-input type="text" name=nav-search class=nav-search-box placeholder="FIND FRIENDS"></form>
                                     <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="recent katchups">
                                     <input type="button" id=location-btn name="location-btn" class=location-btn value="change location">`
+           
             const navSearch = document.getElementById("nav-input") 
+            const navForm = document.getElementById("nav-search")
             navSearch.focus()
-            navSearch.addEventListener("submit", function(event){ 
-                event.preventDefault()      
-                const formData = new FormData(navSearch)
+            navForm.addEventListener("submit", function(event){ 
+                event.preventDefault()  
+                const formData = new FormData(navForm)
                 const plainFormData = formData.get("nav-search")
                 center.innerHTML = `
                     <div class=card id=card>
@@ -162,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 userImg.style.cursor = "pointer"
                 selectUser(userImg, user)
             }            
-                navSearch.addEventListener("focusout", function(){
+                navSearch.addEventListener("blur", function(){
                     setNavigation(user)
                 }, { once: true } )   
 
