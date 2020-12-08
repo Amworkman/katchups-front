@@ -1,42 +1,24 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-
-
-    // !VARIABLES 
-
-
-
-
-    const main = document.getElementById("main")    
+    // !VARIABLES
+   
     const BASE_URL = "http://localhost:3000"
     const AUTO_URL = `${BASE_URL}/auto_login`
     const USERS_URL = `${BASE_URL}/users`
     const FRIENDS_URL = `${BASE_URL}/friends`
-    const PENDING_URL = `${BASE_URL}/pending_friends`
-    const PENDING_DELETE_URL = `${BASE_URL}/delete_pending`
     const LOGIN_URL = `${BASE_URL}/login`
-    const RESTAURANTS_URL = `${BASE_URL}/restaurants`
-    const RELATIONSHIPS_URL = `${BASE_URL}/relationships`
-    const allFriends = []
-    const allRestaurants = []
     const restaurantContainer = document.getElementById('restaurantContainer')
     const userContainer = document.getElementById('userContainer')
     const headerContainer = document.getElementById('header')
-    const rightSearchContainer = document.getElementById('right-search')
     const loginCard = document.getElementById("login-card")
     const center = document.getElementById("center")
 
     const intro = "Messenger bag direct trade plaid, sartorial ugh etsy bicycle rights YOLO DIY prism cred tattooed blue bottle you probably haven't heard of them lyft. Polaroid poke kombucha readymade hot chicken banjo. Hot chicken literally enamel pin vinyl, fashion axe edison bulb kogi. Irony air plant venmo, waistcoat activated charcoal kitsch put a bird on it listicle franzen kale chips shaman."
     const howTo = "Quinoa prism church-key la croix ramps. Celiac tofu yr chicharrones, helvetica man bun drinking vinegar brooklyn. Marfa vegan vaporware pabst brunch. Kale chips snackwave banjo authentic. Tousled disrupt iPhone chicharrones health goth before they sold out narwhal brooklyn butcher DIY street art. Single-origin coffee +1 keytar, neutra four loko pinterest selvage actually pour-over offal hoodie."
 
-
-
     // !START
 
-
-
-    run()
-    
+    run()    
 
     function run(){
         if (localStorage.token){
@@ -56,9 +38,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 
-
     function fetchPlacesKey() {
-        restaurantContainer.textContent = ""
         fetch(`${BASE_URL}/places_key`,{
             method: "Get",
             headers: {
@@ -66,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function(){
             Authorization: "Bearer " + localStorage.getItem("token")
             }
     })
+
     .then(resp => resp.json())
     .then(data => setPlacesKey(data))
     
@@ -76,14 +57,9 @@ document.addEventListener("DOMContentLoaded", function(){
     
     }
 
-
     // !NAVIGATION
 
-
-
-    function setNavigation(user) {
-
-        
+    function setNavigation(user) {       
 
         headerContainer.innerHTML = `<input type="button" id=logout-btn name="logout-btn" class=logout-btn value="Log Out">
                                     <img class=nav-img src=${user.profile_img}>
@@ -201,8 +177,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
     }
 
-
-
     //# !CURRENT USER
 
     function getCurrentUser(){
@@ -222,12 +196,8 @@ document.addEventListener("DOMContentLoaded", function(){
         setNavigation(user)
     
     }
-   
-
 
     // !LOG IN
-
-
 
     function logIn(){
         document.getElementById("left-search").innerHTML = ""
@@ -275,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function(){
 		        console.error(error)
 	        }   
         }
-        
+
         async function formDataAsJson({ url, formData }) {
             const plainFormData = Object.fromEntries(formData.entries())
             const formDataJsonString = JSON.stringify(plainFormData)
@@ -287,7 +257,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 },
                 body: formDataJsonString,
             }
-            
             const response = await fetch(url, fetchOptions)
 
 	        if (!response.ok) {
@@ -305,11 +274,7 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }
 
-
-
     // !SIGN UP
-
-
 
     function signUp(){
         restaurantContainer.textContent = ""
@@ -342,9 +307,7 @@ document.addEventListener("DOMContentLoaded", function(){
         </div>
         `
         const navUserInput = document.getElementById("user-location-input")
-        navUserInput.addEventListener("click", loadUserPlaces())           
-            
-        function loadUserPlaces() {
+        navUserInput.addEventListener("focus", function(){            
 
             const searchScript = document.createElement("script")
             searchScript.id = "user-search-script"
@@ -366,10 +329,10 @@ document.addEventListener("DOMContentLoaded", function(){
                 document.getElementById("user-search-script").remove()
                 document.getElementById("user-places-script").remove()
                 while(pacContainer.length > 0) {
-                    pacContainer[0].remove();
+                pacContainer[0].remove();
                 }
-            }, { once: true } )
-        }
+            }, { once: true } )            
+        })
 
         const signUpForm = document.getElementById("signup-form")
         signUpForm.addEventListener("submit", handleFormSubmit);
@@ -416,9 +379,6 @@ document.addEventListener("DOMContentLoaded", function(){
             logIn()
         })
     }
-
-
-
 });
 
 
