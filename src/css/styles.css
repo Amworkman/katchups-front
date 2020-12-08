@@ -181,7 +181,12 @@ body {
     border: none;
     outline: none;
     overflow-y: scroll;
-    direction: rtl;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+  }
+
+  .left-box::-webkit-scrollbar {
+    display: none;
   }
 
   .left-box-2 {
@@ -329,6 +334,12 @@ body {
     border: none;
     outline: none;
     overflow-y: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+  }
+
+  .right-box::-webkit-scrollbar {
+    display: none;  
   }
 
   .right-box-2 {
