@@ -7,15 +7,6 @@ class Friend{
         this.profile_img = profile_img
         this.setFriends()
     }
-     //!FRIENDS
-
-    // var searchTerm = "Wil";
-    // var results = persons.filter(function(person) {
-    //     return person.Name.indexOf(searchTerm) > -1;
-    // });
-    // console.log(results);
-
-
 
     static returnFriends(users){
         allFriends = []
