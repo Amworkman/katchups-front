@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             const placesScript = document.createElement("script")
             placesScript.id = "user-places-script"
-            placesScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCsj7NQKQR2y-uR7oKWPC6gFgCMszn2COc&libraries=places&callback=initMap"
+            placesScript.src = `https://maps.googleapis.com/maps/api/js?key=${localstorage.places}&libraries=places&callback=initMap`
             
             document.body.appendChild(placesScript)
             navUserInput.addEventListener("focusout", function(){
