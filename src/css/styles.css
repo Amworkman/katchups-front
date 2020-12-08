@@ -334,21 +334,15 @@ body {
     border: none;
     outline: none;
     overflow-y: scroll;
-    -ms-overflow-style: none; 
-    scrollbar-width: none;
   }
-
-  .right-box::-webkit-scrollbar {
-    display: none;  
-  }
-
+  
   .right-box-2 {
     display: block;
     position: absolute;
     top: 90px;
     right: 0px;
     background-color: #e4e4e4;
-    height: 83%;
+    height: 82%;
     width: 25%;
     text-align: center;
     align-content: center;
@@ -362,8 +356,9 @@ body {
   }
 
   .search-box{
-    min-width: 400px;
-    margin-left: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
     display: block;
     padding: 5px 20px;
     background-color: #e4e4e4;
