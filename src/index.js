@@ -48,10 +48,11 @@ document.addEventListener("DOMContentLoaded", function(){
             getCurrentUser()
             setSearchList()
             setSearchRestList()
+
              
         }else{
-            fetchPlacesKey()
             logIn() 
+            fetchPlacesKey()
         }
     }
 
@@ -125,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 const placesScript = document.createElement("script")
                 placesScript.id = "places-script"
-                placesScript.src = `https://maps.googleapis.com/maps/api/js?key=${localstorage.places}&libraries=places&callback=initMap`
+                placesScript.src = `https://maps.googleapis.com/maps/api/js?key=${localStorage.places}&libraries=places&callback=initMap`
             
                 document.body.appendChild(placesScript)
                 navSearchinput.addEventListener("focusout", function(){
@@ -357,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             const placesScript = document.createElement("script")
             placesScript.id = "user-places-script"
-            placesScript.src = `https://maps.googleapis.com/maps/api/js?key=${localstorage.places}&libraries=places&callback=initMap`
+            placesScript.src = `https://maps.googleapis.com/maps/api/js?key=${localStorage.places}&libraries=places&callback=initMap`
             
             document.body.appendChild(placesScript)
             navUserInput.addEventListener("focusout", function(){
