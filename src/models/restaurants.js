@@ -14,7 +14,7 @@ constructor(name, image_url, location, categories, rating, price){
         restaurants.businesses.forEach(restaurant => {
             const name = restaurant.name
             const image_url = restaurant.image_url
-            const location = restaurant.location.display_address.join(', ')
+            const location = restaurant.location.display_address.join(' ')
             const categories = restaurant.categories.map(category => category.title).join(', ')
             const rating = restaurant.rating
             const price = restaurant.price
