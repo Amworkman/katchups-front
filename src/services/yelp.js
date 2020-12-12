@@ -8,8 +8,11 @@ const PENDING_DELETE_URL = `${BASE_URL}/delete_pending`
 const LOGIN_URL = `${BASE_URL}/login`
 const RESTAURANTS_URL = `${BASE_URL}/restaurants`
 const RELATIONSHIPS_URL = `${BASE_URL}/relationships`
+const KATCHUPS_URL = `${BASE_URL}/katchups`
 let allFriends = []
 let allRestaurants = []
+let allKatchupRestaurants = []
+let allKatchups = []
 const restaurantContainer = document.getElementById('restaurantContainer')
 const userContainer = document.getElementById('userContainer')
 const headerContainer = document.getElementById('header')
@@ -30,3 +33,4 @@ function fetchRestaurants() {
     .then(resp => resp.json())
     .then(data => Restaurant.returnRestaurants(data))
 }
+
