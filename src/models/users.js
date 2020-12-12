@@ -26,11 +26,12 @@ function selectUser(friendImg, user){
         </div>           
         `
         if (allFriends.some(friend => friend.email === user.email)){
-           center.innerHTML +=`
+            
+
+            center.innerHTML +=`
             <div class=card-bottomright>
                 <input type="button" id=card-katchup-btn name="katchup-btn" class=card-katchup-button value="katchup">
             </div>`
-
             const katchupButton = document.getElementById("card-katchup-btn")
             katchupButton.addEventListener("click", function(){
                 center.innerHTML = `
@@ -39,7 +40,7 @@ function selectUser(friendImg, user){
                             <div id=date-picker>                            
                             </div>
                             <div>
-                                <form id=nav-search-location><input type="text" id=nav-search-input name=nav-search-location class=location-box placeholder="${user.location}"></form>
+                                <form id=katchup-search-location><input type="text" id=katchup-search-input name=nav-search-location class=location-box placeholder="${currentUser.location}"></form>
                             </div>
                         </div> 
                         <div class=card-topleft>
@@ -48,26 +49,38 @@ function selectUser(friendImg, user){
                                 <h2>${user.name}</h2>
                             </div>
                         </div>
-                        <div class=card-bottomleft>                            
-                            <div>
-                            <button class="button button3"> <i class="fa fa-thumbs-down"></i></button>
-                            </div>
-                            
+                        <div id=card-bottomleft class=card-bottomleft>                           
                         </div>
-                        <div class=card-bottomright>
-                            <div>
-                                <button class="button button2"> <i class="fa fa-thumbs-up"></i></button>
-                            </div>
+                        <div id= card-bottomright class=card-bottomright>                               
                         </div>
-                        
-                        
-                    </div>` 
+                        <div id=card-bottommid class=card-bottommid>
+                            <button id=ready-button class="button button4">READY</button>
+                        </div>
+                    </div>`                        
 
                 let datepickerDefault = new MtrDatepicker({
                     target: "date-picker",
                 });
+                katchupRestaurants(datepickerDefault)
+                        
+                function katchupRestaurants(datepickerDefault){
+                    const readyButton = document.getElementById("ready-button")
+                    const cardBottomright = document.getElementById("card-bottomright")
+                    const cardBottomleft = document.getElementById("card-bottomleft")
+                    let katchupLocation = document.getElementById("katchup-search-input")
+                        katchupLocation.value = katchupLocation.placeholder
+                        let dateAndTime = datepickerDefault.toString()
+                    readyButton.addEventListener("click",async function(){
+                        let result = await createKatchup(user.id, dateAndTime, katchupLocation.value)
+                        readyButton.remove()
+                        cardBottomleft.innerHTML = `<button id=no-button class="button button3"> <i class="fa fa-thumbs-down"></i></button>`
+                        cardBottomright.innerHTML = `<button id=yes-button class="button button2"> <i class="fa fa-thumbs-up"></i></button>`
+                        fetchKatchupsRestaurants(currentUser.id, user.id, dateAndTime, katchupLocation.value)                  
+                    })  
+                }
 
-                datepickerDefault  
+                
+
             })
         }else{
             center.innerHTML +=`
@@ -89,7 +102,6 @@ function selectUser(friendImg, user){
                         body: friendship
                     })
                 }
-
             })
         }
 
