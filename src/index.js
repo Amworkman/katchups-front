@@ -65,17 +65,24 @@ document.addEventListener("DOMContentLoaded", function(){
                                     <img class=nav-img src=${user.profile_img}>
                                     <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.name}">
                                     <input type="button" id=find-btn name="find-btn" class=find-btn value="find friends">
-                                    <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="recent katchups">
+                                    <input type="button" id=katchups-btn name="katchups-btn" class=recents-btn value="katchups">
                                     <input type="button" id=location-btn name="location-btn" class=location-btn value="change location">`
                 
         const logOutButton = document.getElementById("logout-btn")
         const findFriendsButton = document.getElementById("find-btn")
         const locationButton = document.getElementById("location-btn")
+        const katchupsButton = document.getElementById("katchups-btn")
 
         logOutButton.addEventListener("click",function(){
             localStorage.clear()
             location.reload()
             
+        })
+        katchupsButton.addEventListener("click", async function(){
+            let result = await fetchKatchups()
+                center.innerHTML = `
+                    <div id=katchupCard class=card>
+                    </div>`           
         })
 
         locationButton.addEventListener("click", function(){
