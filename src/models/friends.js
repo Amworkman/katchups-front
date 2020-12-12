@@ -1,5 +1,6 @@
 class Friend{
-    constructor(name, location, email, username, profile_img){
+    constructor(id, name, location, email, username, profile_img){
+        this.id = id
         this.name = name 
         this.location = location 
         this. email = email 
@@ -11,12 +12,13 @@ class Friend{
     static returnFriends(users){
         allFriends = []
         users.forEach(user => {
-          const name = user.name 
-          const email = user.email
-          const location = user.location 
-          const username = user.username
-          const profile_img = user.profile_img 
-          new Friend(name, location, email, username, profile_img)  
+            const id = user.id
+            const name = user.name 
+            const email = user.email
+            const location = user.location 
+            const username = user.username
+            const profile_img = user.profile_img 
+            new Friend(id, name, location, email, username, profile_img)  
         })
         
     }    
