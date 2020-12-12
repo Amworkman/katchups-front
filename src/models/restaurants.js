@@ -1,5 +1,6 @@
 class Restaurant{  
-constructor(name, image_url, location, categories, rating, price){
+constructor(id, name, image_url, location, categories, rating, price){
+    this.id = id
     this.name = name 
     this.image_url = image_url
     this.location = location 
@@ -12,13 +13,14 @@ constructor(name, image_url, location, categories, rating, price){
     static returnRestaurants(restaurants){ 
         allRestaurants = []       
         restaurants.businesses.forEach(restaurant => {
+            const id = restaurant.id
             const name = restaurant.name
             const image_url = restaurant.image_url
             const location = restaurant.location.display_address.join(' ')
             const categories = restaurant.categories.map(category => category.title).join(', ')
             const rating = restaurant.rating
             const price = restaurant.price
-            new Restaurant(name, image_url, location, categories, rating, price)
+            new Restaurant(id, name, image_url, location, categories, rating, price)
         })
         
     }    
@@ -41,6 +43,8 @@ constructor(name, image_url, location, categories, rating, price){
         selectRestaurant(restaurantImg, this)   
     }
 }
+
+
 
 function selectRestaurant(restaurantImg, restaurant){
     restaurantImg.addEventListener("click", function(){
