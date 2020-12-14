@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "start": "node index.js"
+  },
+
   "dependencies": {
     "mtr-datepicker": "^0.3.11"
-  }
+  } 
 }
