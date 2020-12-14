@@ -70,12 +70,9 @@ function selectUser(friendImg, user){
                     let katchupLocation = document.getElementById("katchup-search-input")
                         katchupLocation.value = katchupLocation.placeholder
                         let dateAndTime = datepickerDefault.toString()
-                    readyButton.addEventListener("click",async function(){
-                        let result = await createKatchup(user.id, dateAndTime, katchupLocation.value)
-                        readyButton.remove()
-                        cardBottomleft.innerHTML = `<button id=no-button class="button button3"> <i class="fa fa-thumbs-down"></i></button>`
-                        cardBottomright.innerHTML = `<button id=yes-button class="button button2"> <i class="fa fa-thumbs-up"></i></button>`
-                        fetchKatchupsRestaurants(currentUser.id, user.id, dateAndTime, katchupLocation.value)                  
+                    readyButton.addEventListener("click", function(){
+                        createKatchup(user.id, dateAndTime, katchupLocation.value)
+                        
                     })  
                 }
 
