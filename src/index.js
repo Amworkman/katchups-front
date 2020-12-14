@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // !VARIABLES
    
-    const BASE_URL = "http://localhost:3000"
+    const BASE_URL = "http://katchupsapi.herokuapp.com"
     const AUTO_URL = `${BASE_URL}/auto_login`
     const USERS_URL = `${BASE_URL}/users`
     const FRIENDS_URL = `${BASE_URL}/friends`
