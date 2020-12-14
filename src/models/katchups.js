@@ -37,29 +37,35 @@ class Katchup{
     }    
 }
 
+
+
 function setKatchupsList(){
     const katchupCard = document.getElementById("katchupCard")
     allKatchups.forEach(katchup =>{        
         if (katchup.user_id != currentUser.id && katchup.friend_confirmation == false){
             let katchupFriend = allFriends.find(friend => friend.id == katchup.user_id)
-            let localDate = new Date(katchup.starts_at)
-            katchupCard.innerHTML +=  `
+            const date = new Date(katchup.starts_at)
+            const pending =  document.createElement("div")            
+            pending.innerHTML = `
             <div class=friend-in-search>
-                <img class=circlesearch src=${katchupFriend.profile_img}>
+                <img id=userImg${katchup.user_id} class=circlesearch src=${katchupFriend.profile_img}>
                 <h3>${katchupFriend.name} Wants to katchup</h3>
             </div>`
-            const userImg = katchupCard.querySelector("img")
+            katchupCard.appendChild(pending)
+            const userImg = document.getElementById(`userImg${katchup.user_id}`)
             userImg.style.cursor = "pointer"
-            userImg.addEventListener("click", function(){
+            user = katchupCard.querySelector("img")
+            user.addEventListener("click", function(){
                 katchupCard.innerHTML = `
                     <div class=card-topright>                            
-                            
                             <div>
-                            <h2>Wants to katchup on...</h2><br><br>
-                            <h3>${localDate.toLocaleString()}</h3>
+                            <h2>Wants to katchup at...</h2><br>
+                            <h3>${date.toLocaleTimeString()}<br>
+                            on ${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()}</h3>
                             <h4>in</h4>
                                 <h3>${katchup.location}</h3>
-                                confirm   deny
+                                <button id= confirmButton class="button button8">Confirm</button>   
+                                <button id=deleteButton class="button button9">Delete</button>
                             </div>
                         </div> 
                         <div class=card-topleft>
@@ -73,66 +79,104 @@ function setKatchupsList(){
                         <div id= card-bottomright class=card-bottomright>                               
                         </div>
                         <div id=card-bottommid class=card-bottommid>
-                            <button id=ready-button class="button button4">READY</button>
-                        </div>
-                `
-
-                const readyButton = document.getElementById("ready-button")
+                                    
+                        </div>`
+                
+                const bottomCard = document.getElementById("card-bottommid")
+                const confirmButton = document.getElementById("confirmButton")
+                const deleteButton = document.getElementById("deleteButton")
                 const cardBottomright = document.getElementById("card-bottomright")
                 const cardBottomleft = document.getElementById("card-bottomleft")
-                readyButton.addEventListener("click", async function(){
-                    readyButton.remove()
-                    cardBottomleft.innerHTML = `<button id=no-button class="button button3"> <i class="fa fa-thumbs-down"></i></button>`
-                    cardBottomright.innerHTML = `<button id=yes-button class="button button2"> <i class="fa fa-thumbs-up"></i></button>`
-                    const result = await fetchKatchupsRestaurants(katchup.user_id, currentUser.id, katchup.stats_at, katchup.location)                 
+                
+                deleteButton.addEventListener("click", function(){
+                    deleteKatchup(katchup.id)
+                    center.innerHTML = ""
                 })
+                
+                confirmButton.addEventListener("click", function(){
+                    bottomCard.innerHTML = `<button id=ready-button class="button button4">READY</button>`
+                
+                    const readyButton = document.getElementById("ready-button")
+                    readyButton.addEventListener("click", function(){
+                        readyButton.remove()
+                        cardBottomleft.innerHTML = `<button id=no-button class="button button3"> <i class="fa fa-thumbs-down"></i></button>`
+                        cardBottomright.innerHTML = `<button id=yes-button class="button button2"> <i class="fa fa-thumbs-up"></i></button>`
+                        fetchKatchupsRestaurants(katchup, katchup.user_id, currentUser.id, katchup.starts_at, katchup.location)                 
+                    })
+                })                
             })
-
-            
-
         }else if (katchup.user_id == currentUser.id && katchup.friend_confirmation == false){
             let katchupFriend = allFriends.find(friend => friend.id == katchup.friend_id)
-            katchupCard.innerHTML +=  `
+            
+            const waitingOn =  document.createElement("div")            
+            waitingOn.innerHTML = `
             <div class=friend-in-search>
                 <img class=circlesearch src=${katchupFriend.profile_img}>
                 <h3>Waiting on ${katchupFriend.name}</h3>
             </div>`
+            katchupCard.appendChild(waitingOn)
         }else if (katchup.user_id != currentUser.id && katchup.user_confirmation == true && katchup.friend_confirmation == true){
             let katchupFriend = allFriends.find(friend => friend.id == katchup.user_id)
             let katchupRestaurant = allRestaurants.find(restaurant => restaurant.id == katchup.restaurant_id )
-            katchupCard.innerHTML +=  `
+            const upcomingUser =  document.createElement("div")            
+            upcomingUser.innerHTML =  `
             <div class=friend-in-search>
                 <img class=circlesearch src=${katchupFriend.profile_img}><img class=circlesearch src=${katchupRestaurant}>
                 <h3>${katchupFriend.name} Upcoming katchup</h3>
                 <h4>${katchup.start_time}</h4>
             </div>`
+            katchupCard.appendChild(upcomingUser)
         }else if (katchup.user_id == currentUser.id && katchup.user_confirmation == true && katchup.friend_confirmation == true){
             let katchupFriend = allFriends.find(friend => friend.id == katchup.friend_id)
             let katchupRestaurant = allRestaurants.find(restaurant => restaurant.id == katchup.restaurant_id )
-            katchupCard.innerHTML +=  `
+            const upcomingFriend =  document.createElement("div")            
+            upcomingFriend.innerHTML =  `
             <div class=friend-in-search>
                 <img class=circlesearch src=${katchupFriend.profile_img}><img class=circlesearch src=${katchupRestaurant}>
                 <h3>${katchupFriend.name} Upcoming katchup</h3>
                 <h4>${katchup.start_time}</h4>
-              </div>`
+            </div>`
+            katchupCard.appendChild(upcomingFriend)
         }       
     })
 }
 
-function checkForMatch(katchup){
+function checkForMatch(katchup, user){
+    const friend = allFriends.find(friend => friend.id === user)
     const match = katchup.user_array.filter(restaurantId => katchup.friend_array.includes(restaurantId))
-    
     if (match.length > 0){
+        const date = new Date(katchup.starts_at)
         center.innerHTML = ""
         const backgroundText = document.getElementById("background-text")
-        const katchupRestaurantId = match[0] 
-        debugger
-        const restaurantMatch = allKatchupRestaurants.find(restaurant => restaurant.id = katchupRestaurantId)
-        backgroundText.innerHTML = `<h1>MATCH</h1>`
+        const katchupRestaurantId = match[0]
+        const restaurantMatch = allKatchupRestaurants.find(restaurant => restaurant.id === katchupRestaurantId)
+        backgroundText.innerHTML = `<h1>MATCH!</h1>`  
         center.innerHTML = `
-        <img class=circlecard src=${restaurantMatch.image_url}>
-        <h2>${restaurantMatch.name}</h2>
-        <button>Confirm katchup</button>
-        <button>Reject katchup</button>`
+        <img class="katchup-circlecard rest" src=${restaurantMatch.image_url}>
+        <img class="katchup-circlecard friend" src=${friend.profile_img}>
+        <h2 class=match-rest>${restaurantMatch.name} with ${friend.name}</h2>
+        <h2 class=match-date>
+        at ${date.toLocaleTimeString()}<br>
+        on ${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()}</h2>
+        <button id=confirm-katchup-button class="button button6">Confirm</button>
+        <button id = delete-katchup-button class="button button7">Delete</button>`
+        const confirmKatchupButton = document.getElementById("confirm-katchup-button")
+        const deleteKatchupButton = document.getElementById("delete-katchup-button")
+
+        confirmKatchupButton.addEventListener("click", async function(){
+            katchup.friend_confirmation = true
+            katchup.restaurant_id = katchupRestaurantId
+            const result = await updateKatchup(katchup)
+            center.innerHTML = ""
+            backgroundText.innerHTML = `<h1>katchups</h1>`
+        })
+
+        deleteKatchupButton.addEventListener("click", async function(){
+            const result = await deleteKatchup(katchup.id)
+            center.innerHTML = ""
+            backgroundText.innerHTML = `<h1>katchups</h1>`
+
+        })
     }
 }
+
