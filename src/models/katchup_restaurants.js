@@ -11,7 +11,7 @@ class KatchupRestaurant{
 
     }
 
-    static returnKatchupRestaurants(user, friend, restaurants){ 
+    static returnKatchupRestaurants(katchup, user, friend, restaurants){ 
         allKatchupRestaurants = []       
         restaurants.businesses.forEach(restaurant => {
             const id = restaurant.id
@@ -23,11 +23,22 @@ class KatchupRestaurant{
             const price = restaurant.price
             new KatchupRestaurant(id, name, image_url, location, categories, rating, price)
         })
-        setCenterCard(user, friend)
+        setCenterCard(katchup, user, friend)
     }    
 }
 
-function setCenterCard(user, friend){
+function tempKatchups(katchup, friend, date, location){
+    tempKatchup = katchup
+    const readyButton = document.getElementById("ready-button")
+    const cardBottomright = document.getElementById("card-bottomright")
+    const cardBottomleft = document.getElementById("card-bottomleft")
+    readyButton.remove()
+    cardBottomleft.innerHTML = `<button id=no-button class="button button3"> <i class="fa fa-thumbs-down"></i></button>`
+    cardBottomright.innerHTML = `<button id=yes-button class="button button2"> <i class="fa fa-thumbs-up"></i></button>`
+    fetchKatchupsRestaurants(tempKatchup, currentUser.id, friend, date, location)                  
+}
+
+function setCenterCard(katchup, user, friend){
     const centerCard = document.getElementById("card-bottommid")
     const noButton = document.getElementById("no-button")
     const yesButton = document.getElementById("yes-button")
@@ -44,13 +55,18 @@ function setCenterCard(user, friend){
             ${allKatchupRestaurants[i].price}<br>       
         </div` 
 
-        yesButton.addEventListener("click", function(){            
+        yesButton.addEventListener("click", function(){          
             if (user == currentUser.id){
-                addToUserArray(allKatchupRestaurants[i].id, friend, user)
+                tempKatchup.user_id = user
+                tempKatchup.friend_id = friend
+                tempKatchup.user_array.push(allKatchupRestaurants[i].id)
+                updateKatchup(tempKatchup)
             } else if (friend == currentUser.id){
-                addToFriendArray(allKatchupRestaurants[i].id, friend, user)
-                const katchupID = allKatchups.find(katchup => katchup.friend_id == friend && katchup.user_id == user).id
-                fetchMatch(katchupID)
+                katchup.user_id = user
+                katchup.friend_id = friend
+                katchup.friend_array.push(allKatchupRestaurants[i].id)
+                updateKatchup(katchup)
+                fetchMatch(katchup.id, user)
             }
             i ++
             centerCard.innerHTML =`
