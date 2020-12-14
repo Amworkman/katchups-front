@@ -30,7 +30,7 @@ function fetchPending() {
     .then(data => Pending.returnPending(data))
 }
 
-function fetchKatchupsRestaurants(user, friend, date, location) {
+function fetchKatchupsRestaurants(katchup, user, friend, date, location) {
     fetch(`${RESTAURANTS_URL}?date=${date}&location=${location}`,{
         method: "Get",
         headers: {
@@ -39,7 +39,7 @@ function fetchKatchupsRestaurants(user, friend, date, location) {
         }
     })
     .then(resp => resp.json())
-    .then(data => KatchupRestaurant.returnKatchupRestaurants(user, friend, data))
+    .then(data => KatchupRestaurant.returnKatchupRestaurants(katchup, user, friend, data))
 }
 
 function createKatchup(friend, date, location){
@@ -51,7 +51,8 @@ function createKatchup(friend, date, location){
         },
         body: JSON.stringify({user_id: currentUser.id, friend_id: friend, starts_at: date, location: location}),
     })
-    .then(resp => resp.json())    
+    .then(resp => resp.json())
+    .then(data => tempKatchups(data, friend, date, location))    
 }
 
 function addToUserArray(restaurant, friend, user){
@@ -90,7 +91,7 @@ function fetchKatchups(){
     .then(data => Katchup.returnKatchups(data))    
 }
 
-function fetchMatch(id){
+function fetchMatch(id, user){
     fetch(`${KATCHUPS_URL}/${id}`,{
         method:"GET",
         headers: {
@@ -99,6 +100,34 @@ function fetchMatch(id){
         }
     })
     .then(resp => resp.json())
-    .then(data => checkForMatch(data))
+    .then(data => checkForMatch(data, user))
+}
+
+function deleteKatchup(id){
+    fetch(`${KATCHUPS_URL}/${id}`,{
+        method:"DELETE",
+        headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token") 
+        }
+    })
+}
+
+function updateKatchup(katchup){
+    fetch(`${KATCHUPS_URL}/${katchup.id}`,{
+        method:"PATCH",
+        headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token") 
+        },
+        body: JSON.stringify({
+            friend_confirmation: katchup.friend_confirmation,
+            user_confirmation: katchup.user_confirmation,
+            restaurant_id: katchup.restaurant_id,
+            user_array: katchup.user_array,
+            friend_array: katchup.friend_array,
+            user_id: katchup.user_id,
+            friend_id: katchup.friend_id }),
+    })
 }
 

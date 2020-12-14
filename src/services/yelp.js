@@ -13,6 +13,15 @@ let allFriends = []
 let allRestaurants = []
 let allKatchupRestaurants = []
 let allKatchups = []
+let tempKatchup = []
+const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+]
+const dayNames = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+    "Saturday"
+]
 const restaurantContainer = document.getElementById('restaurantContainer')
 const userContainer = document.getElementById('userContainer')
 const headerContainer = document.getElementById('header')
