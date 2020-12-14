@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "HOST=http://katchupsapi.herokuapp.com"
+    "start": "BASE_URL=http://katchupsapi.herokuapp.com"
   },
 
   "dependencies": {
