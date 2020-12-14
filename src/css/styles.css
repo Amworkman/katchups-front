@@ -128,6 +128,43 @@ body {
     max-width: 100%;
   }
 
+  .katchup-circlecard {
+    display: block;
+    position: absolute;
+    top: 6%;
+    width: 250px;
+    height: 250px;
+    background: #3f3f3f;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+  }
+
+  .katchup-circlecard img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  .rest{
+    width: 200px;
+    height: 200px;
+    left:10%;
+    top: 9%;
+
+  }
+
+  .friend{
+    width: 200px;
+    height: 200px;
+    right: 10%;
+    top: 9%;
+  }
+
   .nav-img {
     display: inline-flex;
     position: absolute;
@@ -243,6 +280,29 @@ body {
   }
 
   .card::-webkit-scrollbar {
+    display: none;
+  }
+
+  .katchup-card {
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;        
+    background-color: #e4e4e4;
+    width: 90%;
+    height: 91%;
+    top: 20px;
+    box-shadow: 0 5px 15px rgba(39, 39, 39, 0.644);
+    padding: 10px;
+    border-radius: 10px;   
+    border: none;
+    outline: none;
+    margin : 0 auto;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .katchup-card::-webkit-scrollbar {
     display: none;
   }
 
@@ -505,7 +565,22 @@ body {
     color: black;
     font-family: Helvetica;
   }
+
+  .match-rest{
+    position: absolute;
+    font-size: 1.5em;
+    color: rgb(221, 221, 221);
+    font-family: Helvetica;
+    top: 0%;
+  }
   
+  .match-date{
+    position: absolute;
+    font-size: 1.5em;
+    color: rgb(221, 221, 221);
+    font-family: Helvetica;
+    top: 33%;
+  }
   li {
     font-size: 1.05em;
     list-style: none;
@@ -782,6 +857,78 @@ body {
   .button4:hover {
     text-shadow: 0px 5px 15px rgb(19, 19, 19);
     color: #a0e59d;
+  }
+
+  .button6{
+    position: absolute;
+    font-size: 50px;
+    left: 20%;
+    bottom: 20%;
+    text-align: center;
+    color: rgb(163, 163, 163);    
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+  }
+
+  .button6:hover {
+    text-shadow: 0px 5px 15px rgb(19, 19, 19);
+    color: #7abbe0;
+  }
+
+  .button7{
+    position: absolute;
+    font-size: 50px;
+    right: 20%;
+    bottom: 20%;
+    text-align: center;
+    color: rgb(163, 163, 163);    
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+  }
+
+  .button7:hover {
+    text-shadow: 0px 5px 15px rgb(19, 19, 19);
+    color: #c45a5a;
+  }
+
+  .button8{
+    position: absolute;
+    font-size: 20px;
+    left: 20%;
+    bottom: 1%;
+    text-align: center;
+    color: rgb(163, 163, 163);    
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+  }
+
+  .button8:hover {
+    text-shadow: 0px 5px 15px rgb(19, 19, 19);
+    color: #619bbe;
+  }
+
+  .button9{
+    position: absolute;
+    font-size: 20px;
+    right: 20%;
+    bottom: 1%;
+    text-align: center;
+    color: rgb(163, 163, 163);    
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+  }
+
+  .button9:hover {
+    text-shadow: 0px 5px 15px rgb(19, 19, 19);
+    color: #c45a5a;
   }
 
   .switch-btn{
