@@ -1,5 +1,5 @@
 const main = document.getElementById("main")    
-const BASE_URL = "http://katchupsapi.herokuapp.com"
+const BASE_URL = "https://katchupsapi.herokuapp.com"
 const AUTO_URL = `${BASE_URL}/auto_login`
 const USERS_URL = `${BASE_URL}/users`
 const FRIENDS_URL = `${BASE_URL}/friends`
