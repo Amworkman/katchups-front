@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function(){
         katchupsButton.addEventListener("click", async function(){
             let result = await fetchKatchups()
                 center.innerHTML = `
-                    <div id=katchupCard class=card>
+                    <div id=katchupCard class=katchup-card>
                     </div>`           
         })
 
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                         <img class=nav-img src=${user.profile_img}>
                                         <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.name}">
                                         <input type="button" id=find-btn name="find-btn" class=find-btn value="find friends">
-                                        <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="recent katchups">
+                                        <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="katchups">
                                         <form id=nav-search-location><input type="text" id=nav-search-input name=nav-search-location class=nav-location-box placeholder="ENTER CITY"></form>`            
             loadPlacesScript()           
             
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                     <img class=nav-img src=${user.profile_img}>
                                     <input type="button" id=user-tag name="user-tag" class=username-btn value="${user.name}">
                                     <form id=nav-search><input id=nav-input type="text" name=nav-search class=nav-search-box placeholder="FIND FRIENDS"></form>
-                                    <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="recent katchups">
+                                    <input type="button" id=recents-btn name="recents-btn" class=recents-btn value="katchups">
                                     <input type="button" id=location-btn name="location-btn" class=location-btn value="change location">`
            
             const navSearch = document.getElementById("nav-input") 
