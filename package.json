@@ -1,8 +1,4 @@
 {
-  "scripts": {
-    "start": "BASE_URL=http://katchupsapi.herokuapp.com"
-  },
-
   "dependencies": {
     "mtr-datepicker": "^0.3.11"
   } 
